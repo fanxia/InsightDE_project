@@ -4,7 +4,8 @@ import mysql.connector
 config = {
   'user': 'root',
   'password': '1990740115',
-  'host': '127.0.0.1',
+#  'host': '127.0.0.1',
+  'host':'host.docker.internal',
   'database': 'test',
   'raise_on_warnings': True
 }
@@ -33,7 +34,8 @@ def callback(ch, method, properties, body):
     cnx.commit()
 
 connection = pika.BlockingConnection(
-    pika.ConnectionParameters(host='localhost'))
+#    pika.ConnectionParameters(host='localhost'))
+    pika.ConnectionParameters(host='host.docker.internal'))
 channel = connection.channel()
 channel.queue_declare(queue='frame_queue')
 channel.basic_qos(prefetch_count=1)
