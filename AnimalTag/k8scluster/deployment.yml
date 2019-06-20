@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-cpu
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: app-cpu
+
+  template:
+    metadata:
+      labels:
+        app: app-cpu
+    spec:
+      containers:
+      - name: app-cpu
+        image: fanxia08/animaltag-cpu:v2
+#    ports:
+#        - name: app-cpu-port
+#          containerPort: 3000
