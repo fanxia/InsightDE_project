@@ -1,0 +1,16 @@
+{
+"mysql":{
+        "db_host" : "172.20.40.73",
+        "db_port" : "3306",
+        "db_user" : "fan",
+        "db_passwd": "1990740115",
+        "db_name": "AnimalTag_db"
+    	},	
+"rabbitmq":{
+	"mq_host" : "172.20.40.73",
+	"mq_port" : 5672,
+	"mq_user" : "admin",
+	"mq_passwd" : "1990740115",
+	"mq_name" : "frame_queue"
+	}
+}

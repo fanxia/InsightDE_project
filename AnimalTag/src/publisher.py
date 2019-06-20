@@ -1,10 +1,14 @@
 import cv2,sys,time
-import pika,pickle
+import pika,pickle,json
 
-connection = pika.BlockingConnection(
-    pika.ConnectionParameters(host='localhost'))
+with open('config.json') as config_file:
+    cfg = json.load(config_file)
+
+credentials = pika.PlainCredentials(cfg["rabbitmq"]["mq_user"], cfg["rabbitmq"]["mq_passwd"])
+parameters = pika.ConnectionParameters(cfg["rabbitmq"]["mq_host"],cfg["rabbitmq"]["mq_port"],'/',credentials)
+connection = pika.BlockingConnection(parameters)
 channel = connection.channel()
-channel.queue_declare(queue='frame_queue')
+channel.queue_declare(queue=cfg["rabbitmq"]["mq_name"])
 print('starting...')
 video_path = "./videotest.mp4"
 cap = cv2.VideoCapture(video_path)
@@ -16,7 +20,7 @@ while count<25 and cap.isOpened():
     ret,frame = cap.read()
     channel.basic_publish(
         exchange='',
-        routing_key='frame_queue',
+        routing_key=cfg["rabbitmq"]["mq_name"],
         body=pickle.dumps({'buff':frame,'count':count})
         )
     print('sent:',count)
