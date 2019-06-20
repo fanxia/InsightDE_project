@@ -24,8 +24,8 @@ def callback(ch, method, properties, body):
     result=darknet.detect_np(net, meta, mdata['buff'])
     print(mdata['timestamp'],result)
     dic={'bear':0, 'zebra':0, 'bird':0, 'horse':0, 'cat':0, 'dog':0, 'elephant':0,'sheep':0, 'cow':0, 'giraffe':0, 'timestamp': 0}
+    dic['timestamp']=mdata['timestamp']
     for ob in result:
-        dic['timestamp']=mdata['timestamp']
         ani=ob[0].decode()
         if ani in dic and dic[ani]<ob[1]*100:
             dic[ani]=int(ob[1]*100)
