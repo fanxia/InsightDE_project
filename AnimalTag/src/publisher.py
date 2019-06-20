@@ -16,12 +16,13 @@ fps=cap.get(cv2.CAP_PROP_FPS)
 count = 10
 print('fps:',fps)
 while count<25 and cap.isOpened():
-    cap.set(cv2.CAP_PROP_POS_FRAMES,fps*10*count)
+    timestamp=10*count
+    cap.set(cv2.CAP_PROP_POS_FRAMES,fps*timestamp)
     ret,frame = cap.read()
     channel.basic_publish(
         exchange='',
         routing_key=cfg["rabbitmq"]["mq_name"],
-        body=pickle.dumps({'buff':frame,'count':count})
+        body=pickle.dumps({'buff':frame,'timestamp':timestamp})
         )
     print('sent:',count)
     count+=1

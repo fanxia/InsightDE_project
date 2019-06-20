@@ -20,9 +20,9 @@ meta = darknet.load_meta(b"/opt/numpydarknet_gpu/cfg/coco.data")
 
 def callback(ch, method, properties, body):
     mdata = pickle.loads(body)
-    print('working on count:',mdata['count'])
+    print('working on timestamp:',mdata['timestamp'])
     result=darknet.detect_np(net, meta, mdata['buff'])
-    print(mdata['count'],result)
+    print(mdata['timestamp'],result)
     dic={'bear':0, 'zebra':0}
     for ob in result:
         ani=ob[0].decode()
