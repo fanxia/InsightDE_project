@@ -23,14 +23,15 @@ def callback(ch, method, properties, body):
     print('working on timestamp:',mdata['timestamp'])
     result=darknet.detect_np(net, meta, mdata['buff'])
     print(mdata['timestamp'],result)
-    dic={'bear':0, 'zebra':0}
+    dic={'bear':0, 'zebra':0, 'bird':0, 'horse':0, 'cat':0, 'dog':0, 'elephant':0,'sheep':0, 'cow':0, 'giraffe':0, 'timestamp': 0}
     for ob in result:
+        dic['timestamp']=mdata['timestamp']
         ani=ob[0].decode()
         if ani in dic and dic[ani]<ob[1]*100:
             dic[ani]=int(ob[1]*100)
     sqlhead= ("INSERT INTO anitag "
-             "(BEAR, ZEBRA) "
-              "VALUES (%(bear)s, %(zebra)s)")
+             "(BEAR, ZEBRA, BIRD, HORSE, CAT, DOG, ELEPHANT, SHEEP, COW, GIRAFFE, timestamp) "
+              "VALUES (%(bear)s, %(zebra)s, %(bird)s,%(horse)s,%(cat)s,%(dog)s,%(elephant)s,%(sheep)s,%(cow)s,%(giraffe)s,%(timestamp)s)")
     print(dic)
     cur.execute(sqlhead,dic)
     cnx.commit()
