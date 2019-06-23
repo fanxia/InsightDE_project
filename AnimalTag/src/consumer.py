@@ -33,7 +33,7 @@ def callback(ch, method, properties, body):
     for i in dic:
         cur.execute("INSERT INTO anitag "
              "(object,timestamp,confid)"
-              "VALUES ({0},{1},{2})".format(i,mdata['timestamp'],dic[i]))
+              "VALUES ('{0}',{1},{2})".format(i,mdata['timestamp'],dic[i]))
     cnx.commit()
 
 credentials = pika.PlainCredentials(cfg["rabbitmq"]["mq_user"], cfg["rabbitmq"]["mq_passwd"])
