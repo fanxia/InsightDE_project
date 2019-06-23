@@ -34,6 +34,7 @@ os.makedirs(ydir, exist_ok=True)
 os.system('rm -f {}/*'.format(ydir))
 
 def start_publisher(yvideo):
+    cur.execute("truncate table anitag;")
     vfile=yvideo.streams.first()
     vfile.download(output_path=ydir)
     filename='{0}/{1}'.format(ydir,vfile.default_filename)
@@ -88,3 +89,4 @@ def go_tm(aniplot,yrl,tstps):
 if __name__=='__main__':
     #app.run_server(debug=True)
     app.run_server(debug=True,host='0.0.0.0', port='80')
+    connection.close()
