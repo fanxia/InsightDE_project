@@ -5,19 +5,19 @@ def publisher(channel,q_name,video_path):
     print('starting...')
     cap = cv2.VideoCapture(video_path)
     fps=cap.get(cv2.CAP_PROP_FPS)
-    count = 10
+    timestamp = 0
     print('fps:',fps)
-    while count<25 and cap.isOpened():
-        timestamp=10*count
+    while True:
         cap.set(cv2.CAP_PROP_POS_FRAMES,fps*timestamp)
         ret,frame = cap.read()
+        if not ret: break
         channel.basic_publish(
             exchange='',
             routing_key=q_name,
             body=pickle.dumps({'buff':frame,'timestamp':timestamp})
             )
-        print('sent:',count)
-        count+=1
+        print('sent:',timestamp)
+        timestamp+=1
         time.sleep(5)
     connection.close()
     cap.release()
