@@ -3,7 +3,7 @@ from pytube import YouTube
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
-from dash_util import myweb
+import myweb
 import publisher
 import mysql.connector
 
@@ -21,7 +21,7 @@ mysqlconfig = {
 cnx = mysql.connector.connect(**mysqlconfig)
 cnx.autocommit = True
 cur = cnx.cursor()
-query = 'select object,count(timestamp) from anitag where confid>60 group by object order by count(timestamp) desc'
+query = 'select object,count(timestamp) from anitag where confid>70 group by object order by count(timestamp) desc'
 
 credentials = pika.PlainCredentials(cfg["rabbitmq"]["mq_user"], cfg["rabbitmq"]["mq_passwd"])
 parameters = pika.ConnectionParameters(cfg["rabbitmq"]["mq_host"],cfg["rabbitmq"]["mq_port"],'/',credentials)
@@ -82,7 +82,7 @@ def reset_tm(subm):return 0
 def go_tm(aniplot,yrl,tstps):
     if aniplot is None: return tstps
     obj=aniplot['points'][0]['x']
-    cur.execute("select timestamp,confid from anitag where object='{}' order by timestamp;".format(obj))
+    cur.execute("select timestamp,confid from anitag where object='{}' and confid>70 order by timestamp;".format(obj))
     timep=list(cur)
     return myweb.gettimes(obj,timep,yrl)
     
