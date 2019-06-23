@@ -19,7 +19,6 @@ def publisher(channel,q_name,video_path):
         print('sent:',timestamp)
         timestamp+=1
         time.sleep(5)
-    connection.close()
     cap.release()
     cv2.destroyAllWindows()
     print('ending...')
@@ -34,3 +33,4 @@ if __name__=='__main__':
     channel = connection.channel()
     channel.queue_declare(queue=cfg["rabbitmq"]["mq_name"])
     publisher(channel,cfg["rabbitmq"]["mq_name"],"./videotest.mp4")
+    connection.close()

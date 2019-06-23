@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: app-cpu
 spec:
-  replicas: 5
+  replicas: 10
   selector:
     matchLabels:
       app: app-cpu
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: app-cpu
-        image: fanxia08/animaltag-cpu:v2
+        image: fanxia08/animaltag_cpu:v3
 #    ports:
 #        - name: app-cpu-port
 #          containerPort: 3000
