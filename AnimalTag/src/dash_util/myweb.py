@@ -18,7 +18,7 @@ def pageindex():
     html.Div([
         #html.Hr(),
         html.Div(children='Enter the youtube video url'),
-        dcc.Input(id="yrl",placeholder='Enter a url here',type='text',value='https://www.youtube.com/watch?v=AwUNTeDVnGs',size=40),
+        dcc.Input(id="yrl",placeholder='Enter a url here',type='text',value='https://www.youtube.com/watch?v=AwUNTeDVnGs',size='40'),
         html.Br(),
         html.Br(),
         html.Br(),
