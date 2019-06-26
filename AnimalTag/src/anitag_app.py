@@ -34,7 +34,6 @@ os.makedirs(ydir, exist_ok=True)
 os.system('rm -f {}/*'.format(ydir))
 
 def start_publisher(yvideo,thrds=3):
-    cur.execute("truncate table anitag;")
     vfile=yvideo.streams.first()
     vfile.download(output_path=ydir)
     filename='{0}/{1}'.format(ydir,vfile.default_filename)
@@ -76,7 +75,9 @@ def rabbit_send(subm,yrl):
     Output('interval-component', 'n_intervals'),
     [Input('subm', 'n_clicks')]
 )
-def reset_tm(subm):return 0
+def reset_tm(subm):
+    cur.execute("truncate table anitag;")
+    return 0
 
 @app.callback(
     Output('timestps', 'children'),

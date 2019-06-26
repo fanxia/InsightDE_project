@@ -7,7 +7,7 @@ margin_p1=250
 margin_p2=70
 bkg_clr='#FFFAFA'
 ttl_clr='#E9967A'
-refresh_time=5
+refresh_time=3
 layout_fig=go.Layout(paper_bgcolor='rgb(255,250,250)',plot_bgcolor='rgb(255,250,250)',clickmode='event+select')
 
 def pageindex():
@@ -18,7 +18,7 @@ def pageindex():
     html.Div([
         #html.Hr(),
         html.Div(children='Enter the youtube video url'),
-        dcc.Input(id="yrl",placeholder='Enter a url here',type='text',value='https://www.youtube.com/watch?v=AwUNTeDVnGs',size='40'),
+        dcc.Input(id="yrl",placeholder='Enter a url here',type='text',value='https://www.youtube.com/watch?v=_rwW8P3BnXE',size='40'),
         html.Br(),
         html.Br(),
         html.Br(),
