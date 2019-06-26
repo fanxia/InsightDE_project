@@ -1,11 +1,10 @@
 import cv2,time,pickle
 
 
-def publisher(channel,q_name,video_path):
+def publisher(channel,q_name,video_path,timestamp=0,timeinterval=1):
     print('starting...')
     cap = cv2.VideoCapture(video_path)
     fps=cap.get(cv2.CAP_PROP_FPS)
-    timestamp = 0
     print('fps:',fps)
     while True:
         cap.set(cv2.CAP_PROP_POS_FRAMES,fps*timestamp)
@@ -17,8 +16,8 @@ def publisher(channel,q_name,video_path):
             body=pickle.dumps({'buff':frame,'timestamp':timestamp})
             )
         print('sent:',timestamp)
-        timestamp+=1
-        time.sleep(5)
+        timestamp+=timeinterval
+#        time.sleep(5)
     cap.release()
     cv2.destroyAllWindows()
     print('ending...')

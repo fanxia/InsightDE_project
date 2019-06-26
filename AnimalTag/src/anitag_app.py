@@ -33,12 +33,15 @@ ydir='/tmp/AnimalTag'
 os.makedirs(ydir, exist_ok=True)
 os.system('rm -f {}/*'.format(ydir))
 
-def start_publisher(yvideo):
+def start_publisher(yvideo,thrds=3):
     cur.execute("truncate table anitag;")
     vfile=yvideo.streams.first()
     vfile.download(output_path=ydir)
     filename='{0}/{1}'.format(ydir,vfile.default_filename)
-    publisher.publisher(channel,cfg["rabbitmq"]["mq_name"],filename)
+    #publisher.publisher(channel,cfg["rabbitmq"]["mq_name"],filename)
+    for i in range(thrds):
+        multiprocessing.Process(target=publisher.publisher,args=[channel,cfg["rabbitmq"]["mq_name"],filename,i,thrds]).start()
+
 
 app=dash.Dash(__name__, external_stylesheets=['https://codepen.io/chriddyp/pen/bWLwgP.css'])
 server = app.server

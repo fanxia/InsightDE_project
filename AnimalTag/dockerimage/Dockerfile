@@ -1,4 +1,5 @@
-FROM fanxia08/numpydarknet_cpu:v1
+#FROM fanxia08/numpydarknet_cpu:v1
+FROM fanxia08/numpydarknet_gpu:v3
 
 Run \
     pip3 install mysql-connector-python pika \
