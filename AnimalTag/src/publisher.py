@@ -22,7 +22,6 @@ def publisher(channel,q_name,video_path,timestamp=0,timeinterval=1):
         timestamp+=timeinterval
 #        time.sleep(5)
     cap.release()
-    cv2.destroyAllWindows()
     print('ending...')
 
 if __name__=='__main__':
