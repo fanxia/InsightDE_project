@@ -6,7 +6,7 @@
 1. [Running Instruction](README.md#instructions)
 1. [Questions?](README.md#questions?)
 
-## Overview
+## Project Overview
 
 ### Zoo-Tube: Jump to your favorite animal!
 
@@ -34,20 +34,20 @@ The Zoo-Tube directory is structured in this way:
 
     ├── README.md
     ├── Zoo-Tube
-    │   └── src
-        │    └── anitag_app.py
-    	│    └── publisher.py
-    	│    └── consumer.py
-    	│    └── config.json 
-    │   └── k8scluster
-    	│    └── deployment.yml
-	│    └── service.yml	
-    │   └── dockerimage
-        │    └── Dockerfile
-    │   └── test
+        ├── src
+        │   └── anitag_app.py
+    	│   └── publisher.py
+    	│   └── consumer.py
+    	│   └── config.json 
+        ├── k8scluster
+    	│   └── deployment.yml
+	│   └── service.yml	
+        ├── dockerimage
+        │   └── Dockerfile
+        ├── test
 
 
-### Running procedures
+### System Setup Procedure
 
 1 Build consumer docker image
 
@@ -56,3 +56,10 @@ The Zoo-Tube directory is structured in this way:
 
 
 3 Build app server with publisher
+
+
+### System Running
+
+
+# Questions?
+Email me at fanxia08@gmail.com
