@@ -44,7 +44,7 @@ def start_publisher(yvideo,thrds=3):
 
 app=dash.Dash(__name__, external_stylesheets=['https://codepen.io/chriddyp/pen/bWLwgP.css'])
 server = app.server
-app.title='AnimalTag'
+app.title='Zoo-Tube'
 app.config.suppress_callback_exceptions = True
 
 app.layout=html.Div([

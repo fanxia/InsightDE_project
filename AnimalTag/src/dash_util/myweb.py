@@ -13,7 +13,7 @@ layout_fig=go.Layout(paper_bgcolor='rgb(255,250,250)',plot_bgcolor='rgb(255,250,
 def pageindex():
     return html.Div(style={'backgroundColor': bkg_clr}, children=[
     html.Br(),
-    html.H1(children='AnimalTag',style={'textAlign': 'center','color': ttl_clr}),
+    html.H1(children='ZooTube',style={'textAlign': 'center','color': ttl_clr}),
     html.Br(),
     html.Div([
         #html.Hr(),
