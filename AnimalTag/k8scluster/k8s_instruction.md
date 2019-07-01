@@ -7,13 +7,13 @@
 ## Setting Up K8s on AWS
 This part is mainly modified from the tutor [here](https://ramhiser.com/post/2018-05-20-setting-up-a-kubernetes-cluster-on-aws-in-5-minutes/)
 ### Prerequisites: 
-* Set up AWS account and AWS CLI*
+* Set up AWS account and AWS CLI
 * Install kops + kubectl
 * Create an S3 bucket to store the state of K8s cluster and its configuration
 
 ### Setting Up K8s
 ```
-$ kops create cluster --node-count=3 --node-size=m4.large --zones=us-east-1a --name zootube.k8s.local
+$ kops create cluster --node-count=2 --node-size=m4.large --zones=us-east-1a --name zootube.k8s.local
 ```
 This will only generate a cluster configuration, to launch it, run
 ```

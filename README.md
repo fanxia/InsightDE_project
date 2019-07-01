@@ -6,9 +6,9 @@
 * [Project Overview](README.md#project-overview)
 * [Pipeline](README.md#pipeline)
 * [System Running Instruction](README.md#system-running-instruction)
-..* [Repo directory structure](README.md#repo-directory-structure)
-..* [System Setup Procedure](README.md#system-setup-procedure)
-..* [System Running](README.md#system-running)
+  * [Repo directory structure](README.md#repo-directory-structure)
+  * [System Setup Procedure](README.md#system-setup-procedure)
+  * [System Running](README.md#system-running)
 * [Questions?](README.md#questions?)
 
 
@@ -23,8 +23,8 @@ My application will offer you a quick summary of animals shown up in the video a
 
 ### Approach
 
-- **YOLO + Cloud Computing**
-- YOLO is object detection application in Neural Network model **Darknet**. It can detect animals in image. Refer to [here](https://pjreddie.com/darknet/yolo/). In this project, video frames are processed with Python CV2 where the images are converted to Numpy array. To make YOLO compatible with Numpy input, I modified the Darknet, please go to my [NumpyDarknet](https://github.com/fanxia/numpydarknet_gpu) repo to check more.
+- **YOLO + Cloud Computing-AWS EC2**
+- YOLO is object detection application in Neural Network model **Darknet**. It can detect animals in image. Refer to [here](https://pjreddie.com/darknet/yolo/). In this project, video frames are processed with Python CV2 where the images are converted to Numpy array. To make YOLO compatible with Numpy input, Darknet was modified, please go to my [NumpyDarknet](https://github.com/fanxia/numpydarknet_gpu) repo to check more.
 - Cloud Computing helps to scale up the computing ability. Here, **AWS EC2** service is used to launch kubernetes cluster. The Docker containers are deployed in it.
 
 ## Pipeline
@@ -44,22 +44,22 @@ The project directory is structured in this way:
     ├── README.md
     ├── Zoo-Tube
         ├── src
-        │   ├── anitag_app.py  # Web application      
-    	│   ├── publisher.py
-    	│   ├── consumer.py
-    	│   └── config.json 
+            ├── anitag_app.py  # Web application      
+            ├── publisher.py
+            ├── consumer.py
+            └── config.json 
         ├── k8scluster        # Deploy docker to k8s cluster
-    	│   ├── deployment.yml
-    	│   └── service.yml
+            ├── deployment.yml
+            └── service.yml
         ├── dockerimage       # Build docker image as consumer
-        │   └── Dockerfile
-        ├── test
+            └── Dockerfile
+        ├── test   # test space for development
 
 
 ### System Setup Procedure
-..1. Build consumer docker image
-..1. Deploy consumer to kubernetes cluster on AWS
-..1. Build app server with publisher
+  1. Build consumer docker image
+  1. Deploy consumer to kubernetes cluster on AWS
+  1. Build app server with publisher
 
 #### **1. Build consumer docker image with YOLO implemented**
  *Pre-requirement: intall docker and sign up at dockerhub.*
@@ -123,7 +123,7 @@ $ kubectl delete svc app-gpu
 ```
 
 #### **3. Build app server with publisher**
-- Pre-requirement: spin up a new instance in EC2 to serve the web application which employs the publisher automatically.
+- *Pre-requirement: spin up a new instance in EC2 to serve the web application which employs the publisher automatically.*
 ```
 $ git clone https://github.com/fanxia/InsightDE_project.git
 $ cd Zoo-Tube/src
