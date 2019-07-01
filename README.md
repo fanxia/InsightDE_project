@@ -4,7 +4,7 @@
 
 ## Table of Contents
 * [Project Overview](README.md#project-overview)
-* [Pipeline](README.md#pipeline)
+* [Architecture](README.md#architecture)
 * [System Running Instruction](README.md#system-running-instruction)
   * [Repo directory structure](README.md#repo-directory-structure)
   * [System Setup Procedure](README.md#system-setup-procedure)
@@ -27,7 +27,7 @@ My application will offer you a quick summary of animals shown up in the video a
 - YOLO is object detection application in Neural Network model **Darknet**. It can detect animals in image. Refer to [here](https://pjreddie.com/darknet/yolo/). In this project, video frames are processed with Python CV2 where the images are converted to Numpy array. To make YOLO compatible with Numpy input, Darknet was modified, please go to my [NumpyDarknet](https://github.com/fanxia/numpydarknet_gpu) repo to check more.
 - Cloud Computing helps to scale up the computing ability. Here, **AWS EC2** service is used to launch kubernetes cluster. The Docker containers are deployed in it.
 
-## Pipeline
+## Architecture
 
 ![Alt text](AnimalTag/pics/pipeline.png)
 

@@ -22,7 +22,7 @@ def pageindex():
         html.Br(),
         html.Br(),
         html.Br(),
-        html.Div(children="Now get the animal tags!"),
+        html.Div(children="Now let's find animals!"),
         html.Div(html.Button('Submit',id='subm',n_clicks=0))        
     ],style={'textAlign': 'center','marginLeft': margin_p1,'marginRight': margin_p1}),
     html.Div([
@@ -39,7 +39,7 @@ def barplot(n_intervals,dbinfo):
                   figure={'data':[go.Bar(x=[i[0] for i in dbinfo],y=[i[1] for i in dbinfo])],
                           'layout':layout_fig}
         ),
-        html.Div(children='(click on animal bars for details)'),
+        html.Div(children='(click on bars, jump to your favorite animal!)'),
         html.Div(children="update time: {0}s".format(n_intervals*refresh_time)),
         ])
 
