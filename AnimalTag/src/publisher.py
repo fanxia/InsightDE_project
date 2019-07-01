@@ -10,7 +10,7 @@ def publisher(channel,q_name,video_path,timestamp=0,timeinterval=1):
     skipframes=int(fps*timeinterval-1)
     while True:
         #cap.set(cv2.CAP_PROP_POS_FRAMES,fps*timestamp)
-        for i in xrange(skipframes):cap.grab()
+        for i in range(skipframes):cap.grab()
         ret,frame = cap.read()
         if not ret: break
         channel.basic_publish(
