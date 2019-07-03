@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: app-gpu
 spec:
-  replicas: 2
+  replicas: 6
   selector:
     matchLabels:
       app: app-gpu
@@ -18,7 +18,7 @@ spec:
         image: fanxia08/animaltag_gpu:v3
         resources:
           limits:
-            nvidia.com/gpu: 1 # requesting 1 GPU
+            nvidia.com/gpu: 4 # requesting 1 GPU
 #    ports:
 #        - name: app-gpu-port
 #          containerPort: 3000

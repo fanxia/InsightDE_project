@@ -10,15 +10,16 @@ def publisher(channel,q_name,video_path,timestamp=0,timeinterval=1):
     skipframes=int(fps*timeinterval-1)
     while True:
         #cap.set(cv2.CAP_PROP_POS_FRAMES,fps*timestamp)
-        for i in range(skipframes):cap.grab()
         ret,frame = cap.read()
         if not ret: break
+        if frame.shape[0]>480:frame=cv2.resize(frame,(640,480))
         channel.basic_publish(
             exchange='',
             routing_key=q_name,
             body=pickle.dumps({'buff':frame,'timestamp':timestamp})
             )
         print('sent:',timestamp)
+        for i in range(skipframes):cap.grab()
         timestamp+=timeinterval
 #        time.sleep(5)
     cap.release()
