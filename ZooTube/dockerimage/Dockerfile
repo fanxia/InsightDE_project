@@ -5,6 +5,6 @@ Run \
     pip3 install mysql-connector-python pika \
     && git clone https://github.com/fanxia/InsightDE_project.git
 
-WORKDIR InsightDE_project/AnimalTag/src
+WORKDIR InsightDE_project/ZooTube/src
 ENTRYPOINT ["python3","-u","consumer.py"]
 CMD ["bash"]

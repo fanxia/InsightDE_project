@@ -127,6 +127,7 @@ $ kubectl delete svc app-gpu
 ```
 $ git clone https://github.com/fanxia/InsightDE_project.git
 $ cd Zoo-Tube/src
+$ python3 anitag_app.py
 ```
 
 ### System Running
@@ -134,7 +135,7 @@ $ cd Zoo-Tube/src
 ```
 $ ssh -i keypair.pem ubuntu@xxxec2.aws.com
 $ cd InsightDE_project/Zoo-Tube/src
-$ python3 anitag_app.py
+$ gunicorn --bind 0.0.0.0:80 anitag_app:server
 ```
 **The web is live now!**
 
