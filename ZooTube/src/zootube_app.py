@@ -1,39 +1,25 @@
-import dash,os,json,pika,multiprocessing
+import dash,os,json,multiprocessing
 from pytube import YouTube
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
-from dash_util import myweb
+from util import web_template,connect_util
 import publisher
-import mysql.connector
 
-with open('config.json') as config_file:
+
+with open('util/config.json') as config_file:
     cfg = json.load(config_file)
 
-mysqlconfig = {
-  'user': cfg['mysql']['db_user'],
-  'password': cfg['mysql']['db_passwd'],
-  'host': cfg['mysql']['db_host'],
-  'database': cfg['mysql']['db_name'],
-  'port' : cfg['mysql']['db_port'],
-  'raise_on_warnings': True
-}
-cnx = mysql.connector.connect(**mysqlconfig)
+cnx , cur = connect_util.mysql_connect(cfg)
 cnx.autocommit = True
-cur = cnx.cursor()
 query = 'select object,count(timestamp) from anitag where confid>70 group by object order by count(timestamp) desc'
-
-credentials = pika.PlainCredentials(cfg["rabbitmq"]["mq_user"], cfg["rabbitmq"]["mq_passwd"])
-parameters = pika.ConnectionParameters(cfg["rabbitmq"]["mq_host"],cfg["rabbitmq"]["mq_port"],'/',credentials)
-connection = pika.BlockingConnection(parameters)
-channel = connection.channel()
-channel.queue_declare(queue=cfg["rabbitmq"]["mq_name"])
+connection , channel = connect_util.rabbit_connect(cfg)
 
 ydir='/tmp/AnimalTag'
 os.makedirs(ydir, exist_ok=True)
 os.system('rm -f {}/*'.format(ydir))
 
-def start_publisher(yvideo,thrds=3):
+def start_publisher(yvideo):
     vfile=yvideo.streams.first()
     vfile.download(output_path=ydir)
     filename='{0}/{1}'.format(ydir,vfile.default_filename)
@@ -48,8 +34,8 @@ app.title='Zoo-Tube'
 app.config.suppress_callback_exceptions = True
 
 app.layout=html.Div([
-    html.Div(myweb.pageindex()),
-    dcc.Interval(id='interval-component',interval=myweb.refresh_time*1000,n_intervals=0)
+    html.Div(web_template.pageindex()),
+    dcc.Interval(id='interval-component',interval=web_template.refresh_time*1000,n_intervals=0)
 ])
 
 @app.callback(
@@ -59,7 +45,7 @@ app.layout=html.Div([
 def get_db(subm,n_intervals):
     if subm:
         cur.execute(query)
-        return myweb.barplot(n_intervals,list(cur))
+        return web_template.barplot(n_intervals,list(cur))
 
 @app.callback(
     Output('video_title', 'children'),
@@ -88,7 +74,7 @@ def go_tm(aniplot,yrl,tstps):
     obj=aniplot['points'][0]['x']
     cur.execute("select timestamp,confid from anitag where object='{}' and confid>70 order by timestamp;".format(obj))
     timep=list(cur)
-    return myweb.gettimes(obj,timep,yrl)
+    return web_template.gettimes(obj,timep,yrl)
     
 if __name__=='__main__':
     #app.run_server(debug=True)
