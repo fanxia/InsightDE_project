@@ -19,7 +19,7 @@ My application will offer you a quick summary of animals shown up in the video a
 
 ### Video demo
 
-[demo link]()
+[demo link](https://drive.google.com/file/d/1sNmJ5isO4jia8MZx5uLpUf6_aPeQRF--/view?usp=sharing)
 
 ### Approach
 
