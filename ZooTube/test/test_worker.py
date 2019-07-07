@@ -1,10 +1,13 @@
+# Test of consumering process
+
+
 import sys,pickle,pika,time
 import darknet
 import mysql.connector
 config = {
-  'user': 'root',
-  'password': '1990740115',
-#  'host': '127.0.0.1',
+  'user': '****',
+  'password': '****',
+#  'host': '127.0.0.1',  #localhost
   'host':'host.docker.internal',
   'database': 'test',
   'raise_on_warnings': True

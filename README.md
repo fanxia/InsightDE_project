@@ -1,5 +1,5 @@
 # Insight Data Engineering Project 2019B
-![Alt text](AnimalTag/pics/title.png)
+![Alt text](ZooTube/pics/title.png)
 ---
 
 ## Table of Contents
@@ -29,7 +29,7 @@ My application will offer you a quick summary of animals shown up in the video a
 
 ## Architecture
 
-![Alt text](AnimalTag/pics/pipeline.png)
+![Alt text](ZooTube/pics/pipeline.png)
 
 In the UI web, enter the youtube video link and click submit. The producer will be triggered then and start processing video into frames along with pre-processing of image. Frames are send to queue in RabbitMQ. The consumers (YOLO implemented) deployed in kubernetes cluster on AWS are listening to the queue and analyzing the frames. Detection results are then sent to MySQL Database, the UI queries the DB to retrieve the results and show the bar plot.
 
@@ -39,21 +39,24 @@ In the UI web, enter the youtube video link and click submit. The producer will 
 
 ### Repo directory structure
 
-The project directory is structured in this way:
+The project directory is mainly structured in this way:
 
     ├── README.md
-    ├── Zoo-Tube
+    ├── ZooTube
         ├── src
-            ├── anitag_app.py  # Web application      
-            ├── publisher.py
-            ├── consumer.py
-            └── config.json 
+            ├── util
+                ├── config.json     
+                ├── connect_util.py
+                └── web_template.py
+            ├── zootube_app.py  # Web application      
+            ├── publisher.py    # Publish frames from video to queue
+            └── consumer.py     # Read frames from queue and process using YOLO
         ├── k8scluster        # Deploy docker to k8s cluster
             ├── deployment.yml
             └── service.yml
         ├── dockerimage       # Build docker image as consumer
             └── Dockerfile
-        ├── test   # test space for development
+        └── test   # test space for development
 
 
 ### System Setup Procedure
@@ -68,10 +71,10 @@ The project directory is structured in this way:
 ```
 $ git clone https://github.com/fanxia/InsightDE_project.git
 ```
-modify the `config.json` file in `Zoo-Tube/src/` with the correct rabbitMQ and Mysql db connections.
+modify the `config.json` file in `ZooTube/src/util/` with the correct rabbitMQ and Mysql db connections.
 
 ```
-$ cd Zoo-Tube/dockerimage/
+$ cd ZooTube/dockerimage/
 $ sudo docker build  --no-cache -t fanxia08/anitag_gpu:v1 .
 $ docker push fanxia08/anitag_gpu:v1 .
 ```
@@ -82,14 +85,14 @@ $ docker push fanxia08/anitag_gpu:v1 .
  *Pre-requirement: spin up k8s cluster on AWS EC2. Refer to [k8s_instruction](https://github.com/fanxia/InsightDE_project/blob/master/AnimalTag/k8scluster/k8s_instruction.md)* 
 - GPU consumer
 ```
-$ cd Zoo-Tube/k8scluster/
+$ cd ZooTube/k8scluster/
 $ kubectl create -f deployment_gpu.yml
 $ kubectl create -f service_gpu.yml
 ```
 
 - CPU consumer
 ```
-$ cd Zoo-Tube/k8scluster/
+$ cd ZooTube/k8scluster/
 $ kubectl create -f deployment.yml
 $ kubectl create -f service.yml
 ```
@@ -126,16 +129,16 @@ $ kubectl delete svc app-gpu
 - *Pre-requirement: spin up a new instance in EC2 to serve the web application which employs the publisher automatically.*
 ```
 $ git clone https://github.com/fanxia/InsightDE_project.git
-$ cd Zoo-Tube/src
-$ python3 anitag_app.py
+$ cd ZooTube/src
+$ python3 zootube_app.py
 ```
 
 ### System Running
 - Log into the application server instance
 ```
 $ ssh -i keypair.pem ubuntu@xxxec2.aws.com
-$ cd InsightDE_project/Zoo-Tube/src
-$ gunicorn --bind 0.0.0.0:80 anitag_app:server
+$ cd InsightDE_project/ZooTube/src
+$ gunicorn --bind 0.0.0.0:80 zootube_app:server
 ```
 **The web is live now!**
 

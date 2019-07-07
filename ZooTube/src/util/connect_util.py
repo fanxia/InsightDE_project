@@ -1,8 +1,12 @@
 #! /bin/env python3
+'''
+Utility file to connect mysql database and rabbitmq
+'''
 import mysql.connector
 import pika
 
 def mysql_connect(cfg):
+    # connect mysql database
     mysqlconfig = {
         'user': cfg['mysql']['db_user'],
         'password': cfg['mysql']['db_passwd'],
@@ -16,6 +20,7 @@ def mysql_connect(cfg):
     return (cnx,cur)
 
 def rabbit_connect(cfg):
+    # connect rabbitmq
     credentials = pika.PlainCredentials(cfg["rabbitmq"]["mq_user"], cfg["rabbitmq"]["mq_passwd"])
     parameters = pika.ConnectionParameters(cfg["rabbitmq"]["mq_host"],cfg["rabbitmq"]["mq_port"],'/',credentials)
     connection = pika.BlockingConnection(parameters)

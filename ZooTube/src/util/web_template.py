@@ -1,3 +1,7 @@
+#! /bin/env/ python3
+'''
+Web template for zootube application
+'''
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -16,7 +20,6 @@ def pageindex():
     html.H1(children='ZooTube',style={'textAlign': 'center','color': ttl_clr}),
     html.Br(),
     html.Div([
-        #html.Hr(),
         html.Div(children='Enter the youtube video url'),
         dcc.Input(id="yrl",placeholder='Enter a url here',type='text',value='https://www.youtube.com/watch?v=_rwW8P3BnXE',size='40'),
         html.Br(),
@@ -32,6 +35,7 @@ def pageindex():
         html.Div(id='timestps')],
         style={'marginLeft': margin_p1,'marginRight': margin_p1})
     ])
+
 
 def barplot(n_intervals,dbinfo):
     return html.Div([
