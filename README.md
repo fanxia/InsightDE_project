@@ -82,7 +82,7 @@ $ docker push fanxia08/anitag_gpu:v1 .
 
 
 #### **2. Deploy consumer to kubernetes cluster on AWS**
- *Pre-requirement: spin up k8s cluster on AWS EC2. Refer to [k8s_instruction](https://github.com/fanxia/InsightDE_project/blob/master/AnimalTag/k8scluster/k8s_instruction.md)* 
+ *Pre-requirement: spin up k8s cluster on AWS EC2. Refer to [k8s_instruction](https://github.com/fanxia/InsightDE_project/blob/master/ZooTube/k8scluster/k8s_instruction.md)* 
 - GPU consumer
 ```
 $ cd ZooTube/k8scluster/
